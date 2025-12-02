@@ -20,7 +20,7 @@
 
 						<template #subtitle>
 							<h4 class="text-h4 font-weight-regular">
-
+								{{ backendMessage }}
 							</h4>
 						</template>
 
@@ -33,5 +33,15 @@
 </template>
 
 <script setup>
-	//
+import { ref, onMounted } from "vue";
+import { get } from "@/services/http-service.js";
+
+const backendMessage = ref("");
+
+const fetchMessage = async () => {
+	backendMessage.value = await get("/greet", { name: "VoidWatch" });
+}
+
+onMounted(fetchMessage);
+
 </script>
