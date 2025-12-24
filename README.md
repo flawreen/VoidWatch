@@ -12,3 +12,7 @@ Example:
 - Login/Register
 - Movie list
 - Movie page with reviews, add review form
+
+### DB Diagram
+<img width="829" height="582" alt="Untitled" src="https://github.com/user-attachments/assets/d860e6b0-22f5-4182-b98b-687cf2f5a432" />
+
