@@ -2,7 +2,7 @@
 	<v-container class="fill-height" max-width="900">
 		<div>
 			<v-row>
-				<v-col cols="12">
+				<v-col cols="auto">
 					<v-card
 						class="py-4"
 						color="surface-variant"
@@ -25,6 +25,8 @@
 						</template>
 
 						<MovieCard title="Test" year="2025" description="Test description" to="/aaaaaaaaaaaaaa"/>
+						<hr>
+						<ReviewCard title="Nice" created_at="Nov 2025" body="blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablablablablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablablablablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablablablablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla" rating="3" username="gigel"/>
 
 					</v-card>
 				</v-col>
