@@ -1,10 +1,10 @@
-const express = require('express');
+import express from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
 const app = express();
-const httpLogger = require('morgan');
-const cors = require('cors');
 const port = 8080;
 
-app.use(httpLogger('dev'));
+app.use(morgan('dev'));
 app.use(cors({
     origin: ['http://localhost:3000']
 }))

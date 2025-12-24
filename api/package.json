@@ -2,6 +2,7 @@
   "name": "voidwatch",
   "version": "1.0.0",
   "description": "Example:",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,6 +20,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.2.0",
+    "firebase": "^12.7.0",
+    "firebase-admin": "^13.6.0",
     "morgan": "^1.10.1"
   }
 }
