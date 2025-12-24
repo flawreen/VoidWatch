@@ -6,14 +6,9 @@ admin.initializeApp({
     credential: admin.credential.cert(firebaseConfig)
 });
 
-const db = admin.firestore();
+export const db = admin.firestore();
 
-const moviesRef = db.collection('movies');
-const moviesSnapshot = await moviesRef.get();
 
-moviesSnapshot.forEach(doc => {
-    console.log(doc.id, doc.data());
-})
 
 
 
