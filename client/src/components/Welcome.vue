@@ -24,6 +24,8 @@
 							</h4>
 						</template>
 
+						<MovieCard title="Test" year="2025" description="Test description" to="/aaaaaaaaaaaaaa"/>
+
 					</v-card>
 				</v-col>
 
@@ -35,6 +37,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { get } from "@/services/http-service.js";
+import MovieCard from "@/components/MovieCard.vue";
 
 const backendMessage = ref("");
 
