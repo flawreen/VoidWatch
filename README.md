@@ -14,5 +14,5 @@ Example:
 - Movie page with reviews, add review form
 
 ### DB Diagram
-<img width="829" height="582" alt="Untitled" src="https://github.com/user-attachments/assets/d860e6b0-22f5-4182-b98b-687cf2f5a432" />
+<img width="829" height="561" alt="Untitled (1)" src="https://github.com/user-attachments/assets/a4093fcf-b504-458b-be54-1aab6d4f1c2e" />
 
