@@ -1,15 +1,15 @@
 import express from 'express';
-import morgan from 'morgan';
 import cors from 'cors';
-const app = express();
-const port = 8080;
+import {BASE_URL, CLIENT_PORT, logger, SERVER_PORT} from "./config.js";
 
-app.use(morgan('dev'));
+const app = express();
+
+app.use(logger);
 app.use(cors({
-    origin: ['http://localhost:3000']
+    origin: [`${BASE_URL}:${CLIENT_PORT}`]
 }))
-app.use(express.urlencoded({ extended: false }))
-// json req - res
+app.use(express.urlencoded({extended: false}))
+
 app.use(express.json())
 
 app.get('/', (req, res) => {
@@ -17,11 +17,9 @@ app.get('/', (req, res) => {
 });
 
 
-// ROUTES
-
 app.post('/data', (req, res) => {
     // destructuring
-    const { name, email } = req.body; // validates keys exist
+    const {name, email} = req.body; // validates keys exist
 
     // bad example:
     // let data = req.body;
@@ -45,6 +43,6 @@ app.get('/users/:id', (req, res) => {
 });
 // Access: localhost:3000/users/123
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}!`)
+app.listen(SERVER_PORT, () => {
+    console.log(`Example app listening on port ${SERVER_PORT}!`)
 });
