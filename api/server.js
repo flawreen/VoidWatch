@@ -1,10 +1,13 @@
 import express from 'express';
 import cors from 'cors';
-import {BASE_URL, CLIENT_PORT, logger, SERVER_PORT} from "./config.js";
+import {BASE_URL, CLIENT_PORT, express_logger, MOVIE_COLLECTION_NAME, SERVER_PORT} from "./config.js";
+import {seedData} from "./data-gen.js";
+
+// seedData(MOVIE_COLLECTION_NAME);
 
 const app = express();
 
-app.use(logger);
+app.use(express_logger);
 app.use(cors({
     origin: [`${BASE_URL}:${CLIENT_PORT}`]
 }))
