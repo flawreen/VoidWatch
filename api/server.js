@@ -3,7 +3,7 @@ import cors from 'cors';
 import {BASE_URL, CLIENT_PORT, express_logger, MOVIE_COLLECTION_NAME, SERVER_PORT} from "./config.js";
 import {seedData} from "./data-gen.js";
 
-// seedData(MOVIE_COLLECTION_NAME);
+seedData(MOVIE_COLLECTION_NAME);
 
 const app = express();
 
