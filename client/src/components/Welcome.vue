@@ -1,5 +1,5 @@
 <template>
-	<v-container class="fill-height" max-width="900">
+	<v-container class="fill-height">
 		<div>
 			<v-row>
 				<v-col cols="auto">
