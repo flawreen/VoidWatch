@@ -19,12 +19,7 @@
 import { onMounted, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import * as firebaseui from 'firebaseui';
-import {
-	GoogleAuthProvider,
-	EmailAuthProvider,
-	FacebookAuthProvider,
-	GithubAuthProvider
-} from 'firebase/auth';
+import { onAuthStateChanged, GoogleAuthProvider } from 'firebase/auth';
 
 const auth = inject('auth');
 const router = useRouter();
@@ -37,15 +32,28 @@ onMounted(() => {
 	const uiConfig = {
 		signInSuccessUrl: '/',
 		signInOptions: [
-			{
-				provider: 'firebase.auth.EmailAuthProvider.PROVIDER_ID',
-				requireDisplayName: true,
-			},
-			'firebase.auth.GoogleAuthProvider.PROVIDER_ID',
+			GoogleAuthProvider.PROVIDER_ID,
 		],
 	};
 
 	ui.start('#firebaseui-auth-container', uiConfig);
+});
+
+onAuthStateChanged(auth, async (user) => {
+	if (user) {
+		const idToken = await user.getIdToken();
+
+		console.log('ID TOKEN:', idToken);
+
+		await fetch('http://localhost:3000/verify', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ idToken }),
+			credentials: 'include',
+		});
+	}
 });
 </script>
 

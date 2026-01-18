@@ -37,7 +37,7 @@ const verifyToken = async (req, res, next) => {
 
 
 app.post('/verify', async (req, res) => {
-    const { idToken } = req.body;
+    const { idToken } = req.cookies.session;
 
     if (!idToken) {
         return res.status(400).json({ error: 'Token is required' });
@@ -46,6 +46,7 @@ app.post('/verify', async (req, res) => {
     try {
         const decodedToken = await admin.auth().verifyIdToken(idToken);
 
+        // stochez userul si in baza mea de date
         const userRecord = await admin.auth().getUser(decodedToken.uid);
 
         const user = {
@@ -60,6 +61,12 @@ app.post('/verify', async (req, res) => {
         if (existingUser.empty) {
             await db.collection("users").add(user);
         }
+
+        res.cookie('session', idToken, {
+            httpOnly: true,
+            secure: false,
+            maxAge: 60 * 60 * 24 * 7 * 1000
+        });
 
         res.json({
             success: true,
