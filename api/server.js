@@ -20,33 +20,31 @@ app.use(express.json())
 // Authorization
 const verifyToken = async (req, res, next) => {
     const bearerToken = req.headers.authorization?.split('Bearer ')[1];
-    console.log(bearerToken);
 
     if (!bearerToken) {
-        res.status(401).send('No token provided');
+        return res.status(401).send('No token provided');
     }
 
     try {
         req.user = await admin.auth().verifyIdToken(bearerToken);
         next();
     } catch (error) {
-        console.error('Error verifying token:', error);
         return res.status(403).json({ error: 'Invalid token' });
     }
 };
 
 
-app.post('/verify', async (req, res) => {
-    const { idToken } = req.cookies.session;
 
-    if (!idToken) {
+app.post('/verify', async (req, res) => {
+    const bearerToken = req.headers.authorization?.split('Bearer ')[1];
+
+    if (!bearerToken) {
         return res.status(400).json({ error: 'Token is required' });
     }
 
     try {
-        const decodedToken = await admin.auth().verifyIdToken(idToken);
+        const decodedToken = await admin.auth().verifyIdToken(bearerToken);
 
-        // stochez userul si in baza mea de date
         const userRecord = await admin.auth().getUser(decodedToken.uid);
 
         const user = {
@@ -57,30 +55,29 @@ app.post('/verify', async (req, res) => {
             provider: userRecord.providerData[0]?.providerId
         };
 
-        const existingUser = await db.collection('users').where('uid', '==', user.uid).get();
-        if (existingUser.empty) {
-            await db.collection("users").add(user);
-        }
+        const existingUser = await db
+            .collection('users')
+            .where('uid', '==', user.uid)
+            .get();
 
-        res.cookie('session', idToken, {
-            httpOnly: true,
-            secure: false,
-            maxAge: 60 * 60 * 24 * 7 * 1000
-        });
+        if (existingUser.empty) {
+            await db.collection('users').add(user);
+        }
 
         res.json({
             success: true,
             user,
             message: 'User authenticated successfully'
         });
+
     } catch (error) {
-        console.error('Error verifying token:', error);
-        res.status(403).json({
+        return res.status(403).json({
             error: 'Invalid token',
             details: error.message
         });
     }
 });
+
 
 app.post('/logout', verifyToken, async (req, res) => {
     try {

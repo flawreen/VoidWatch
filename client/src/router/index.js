@@ -32,4 +32,14 @@ router.isReady().then(() => {
   localStorage.removeItem('vuetify:dynamic-reload')
 })
 
+router.beforeEach((to, from, next) => {
+	const token = sessionStorage.getItem('token');
+
+	if (to.meta.requiresAuth && !token) {
+		next('/login');
+	} else {
+		next();
+	}
+});
+
 export default router

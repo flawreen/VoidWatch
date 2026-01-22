@@ -19,7 +19,7 @@
 import { onMounted, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import * as firebaseui from 'firebaseui';
-import { onAuthStateChanged, GoogleAuthProvider } from 'firebase/auth';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const auth = inject('auth');
 const router = useRouter();
@@ -30,30 +30,37 @@ onMounted(() => {
 	ui = new firebaseui.auth.AuthUI(auth);
 
 	const uiConfig = {
-		signInSuccessUrl: '/',
 		signInOptions: [
 			GoogleAuthProvider.PROVIDER_ID,
 		],
+		callbacks: {
+			signInSuccessWithAuthResult: async (authResult) => {
+				try {
+					const user = authResult.user;
+					const idToken = await user.getIdToken();
+
+					sessionStorage.setItem('token', idToken);
+
+					await fetch('http://localhost:3000/verify', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							'Authorization': `Bearer ${idToken}`,
+						},
+					});
+
+					await router.push('/');
+				} catch (error) {
+					console.error('Eroare la autentificare:', error);
+				}
+
+				return false;
+			},
+		},
+		signInFlow: 'popup', // IMPORTANT: folosește popup în loc de redirect
 	};
 
 	ui.start('#firebaseui-auth-container', uiConfig);
-});
-
-onAuthStateChanged(auth, async (user) => {
-	if (user) {
-		const idToken = await user.getIdToken();
-
-		console.log('ID TOKEN:', idToken);
-
-		await fetch('http://localhost:3000/verify', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ idToken }),
-			credentials: 'include',
-		});
-	}
 });
 </script>
 

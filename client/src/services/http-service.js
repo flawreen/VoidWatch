@@ -8,6 +8,14 @@ const apiClient = axios.create({
 	},
 });
 
+apiClient.interceptors.request.use((config) => {
+	const token = sessionStorage.getItem('token');
+	if (token) {
+		config.headers.Authorization = `Bearer ${token}`;
+	}
+	return config;
+});
+
 export const get = async (url, params = {}) => {
 	try {
 		const response = await apiClient.get(url, { params });
