@@ -51,7 +51,6 @@ app.post('/verify', async (req, res) => {
             uid: userRecord.uid,
             email: userRecord.email,
             displayName: userRecord.displayName,
-            emailVerified: userRecord.emailVerified,
             provider: userRecord.providerData[0]?.providerId
         };
 

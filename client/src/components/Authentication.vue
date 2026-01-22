@@ -41,7 +41,7 @@ onMounted(() => {
 
 					sessionStorage.setItem('token', idToken);
 
-					await fetch('http://localhost:3000/verify', {
+					await fetch('http://localhost:8080/verify', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
