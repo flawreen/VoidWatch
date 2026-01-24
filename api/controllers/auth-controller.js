@@ -41,7 +41,7 @@ export const verify = async (req, res) => {
             .get();
 
         if (existingUser.empty) {
-            await db.collection('users').add(user);
+            await db.collection('users').doc(decodedToken.uid).set(user);
         }
 
         res.json({
