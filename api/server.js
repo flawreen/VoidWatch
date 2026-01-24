@@ -6,6 +6,7 @@ import {usersRouter} from "./routes/users-routes.js";
 import {authRouter} from "./routes/auth-routes.js";
 import {verifyToken} from "./controllers/auth-controller.js";
 import {moviesRouter} from "./routes/movies-routes.js";
+import {reviewsRouter} from "./routes/reviews-routes.js";
 
 seedData(MOVIE_COLLECTION_NAME);
 
@@ -15,12 +16,14 @@ app.use(express_logger);
 app.use(cors({
     origin: [`${BASE_URL}:${CLIENT_PORT}`]
 }))
-app.use(express.urlencoded({extended: false}))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json())
 app.use(verifyToken);
 app.use(`/users`, usersRouter);
 app.use(`/movies`, moviesRouter);
+app.use(`/reviews`, reviewsRouter);
 app.use(`/`, authRouter);
 
 
