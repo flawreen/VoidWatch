@@ -2,9 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import {BASE_URL, CLIENT_PORT, express_logger, MOVIE_COLLECTION_NAME, SERVER_PORT} from "./config.js";
 import {seedData} from "./data-gen.js";
-import {usersRouter} from "./routes/user-routes.js";
+import {usersRouter} from "./routes/users-routes.js";
 import {authRouter} from "./routes/auth-routes.js";
 import {verifyToken} from "./controllers/auth-controller.js";
+import {moviesRouter} from "./routes/movies-routes.js";
 
 seedData(MOVIE_COLLECTION_NAME);
 
@@ -19,6 +20,7 @@ app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 app.use(verifyToken);
 app.use(`/users`, usersRouter);
+app.use(`/movies`, moviesRouter);
 app.use(`/`, authRouter);
 
 

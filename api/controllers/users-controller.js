@@ -7,7 +7,7 @@ export const getUserById = async (req, res) => {
         const id = req.params.id;
 
         logger.info(`Checking if user with id ${id} exists`);
-        const doc = db.collection('users').doc(id);
+        const doc = await db.collection('users').doc(id);
         const docValue = await doc.get();
         if (!docValue.exists) {
             return res.status(404).json({error: 'User not found.'});
