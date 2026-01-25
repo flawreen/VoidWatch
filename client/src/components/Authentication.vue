@@ -20,9 +20,11 @@ import { onMounted, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import * as firebaseui from 'firebaseui';
 import { GoogleAuthProvider } from 'firebase/auth';
+import {useUserStore} from "@/stores/user-store.js";
 
 const auth = inject('auth');
 const router = useRouter();
+const userStore = useUserStore();
 
 let ui = null;
 
@@ -40,6 +42,8 @@ onMounted(() => {
 					const idToken = await user.getIdToken();
 
 					sessionStorage.setItem('token', idToken);
+					userStore.token = idToken;
+					userStore.user = user;
 
 					await fetch('http://localhost:8080/verify', {
 						method: 'POST',
@@ -57,7 +61,7 @@ onMounted(() => {
 				return false;
 			},
 		},
-		signInFlow: 'popup', // IMPORTANT: folosește popup în loc de redirect
+		signInFlow: 'popup',
 	};
 
 	ui.start('#firebaseui-auth-container', uiConfig);

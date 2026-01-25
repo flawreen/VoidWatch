@@ -29,6 +29,6 @@ const app = createApp(App);
 
 registerPlugins(app);
 
-app.use(pinia)
-app.mount('#app');
+app.use(pinia);
 app.provide('auth', auth);
+app.mount('#app');
