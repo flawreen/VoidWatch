@@ -26,7 +26,7 @@
 
 						<MovieCard title="Test" year="2025" description="Test description" to="/aaaaaaaaaaaaaa"/>
 						<hr>
-						<ReviewCard title="Nice" created_at="Nov 2025" body="blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablablablablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablablablablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablablablablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla blablablabla" rating="3" username="gigel"/>
+						<ReviewCard title="Nice" created_at="Nov 2025" body="blablablabla blablablabla " rating="3" username="gigel"/>
 
 					</v-card>
 				</v-col>

@@ -8,7 +8,7 @@ defineProps({
 </script>
 
 <template>
-	<v-card
+	<v-card class="ma-4"
 		:title="title"
 		:subtitle="year"
 		:text="description"

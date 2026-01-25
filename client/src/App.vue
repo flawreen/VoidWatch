@@ -56,9 +56,7 @@ onMounted(() => {
 			<v-divider></v-divider>
 
 			<v-list density="compact" nav>
-				<v-list-item prepend-icon="mdi-home" title="Home" value="" to="/"></v-list-item>
-				<v-list-item prepend-icon="mdi-folder" title="Shared with me" value="shared" to="/"></v-list-item>
-				<v-list-item prepend-icon="mdi-star" title="Starred" value="starred" to="/"></v-list-item>
+				<v-list-item prepend-icon="mdi-movie" title="Movies" value="" to="/movies"></v-list-item>
 			</v-list>
 
 			<v-divider></v-divider>
