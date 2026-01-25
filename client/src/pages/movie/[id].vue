@@ -41,11 +41,11 @@ onMounted(fetchMessage);
 
 						<p class="ma-8">{{movie.description}}</p>
 					</v-card>
-					<v-infinite-scroll>
-						<template v-for="review in reviews" :key="review">
-							<ReviewCard :title="review.title" :created_at="review.createdAt" :body="review.description" :rating="review.rating" :username="review.userName"></ReviewCard>
+					<v-virtual-scroll :items="reviews">
+						<template v-slot:default="{ item }">
+							<ReviewCard :title="item.title" :created_at="item.createdAt" :body="item.description" :rating="item.rating" :username="item.userName"></ReviewCard>
 						</template>
-					</v-infinite-scroll>
+					</v-virtual-scroll>
 				</v-col>
 			</v-row>
 		</div>

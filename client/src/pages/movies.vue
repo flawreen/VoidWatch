@@ -9,11 +9,11 @@
 						rounded="lg"
 						variant="tonal"
 					>
-						<v-infinite-scroll>
-							<template v-for="movie in movies" :key="movie">
-								<MovieCard :title="movie.title" :year="movie.year.toString()" :description="truncate(movie.description)" :to="movieRoute(movie.id)"></MovieCard>
+						<v-virtual-scroll :items="movies">
+							<template  v-slot:default="{ item }">
+								<MovieCard :title="item.title" :year="item.year.toString()" :description="truncate(item.description)" :to="movieRoute(item.id)"></MovieCard>
 							</template>
-						</v-infinite-scroll>
+						</v-virtual-scroll>
 
 					</v-card>
 				</v-col>
