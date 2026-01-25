@@ -15,7 +15,7 @@ export const getMovieById = async (req, res) => {
         return res.status(200).json(docValue.data());
     } catch (e) {
         logger.info(`Error retrieving movie by id: ${e}`);
-        res.status(500).json({ error: e.message });
+        res.status(500).json({error: e.message});
     }
 }
 
@@ -24,9 +24,14 @@ export const getAllMovies = async (req, res) => {
         logger.info('Retrieving all movies...');
         const collection = await db.collection('movies').get();
 
-        return res.status(200).json(collection.docs.map(doc => doc.data()));
+        const movies = collection.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }))
+
+        return res.status(200).json(movies);
     } catch (e) {
         logger.info(`Error retrieving movies: ${e}`);
-        res.status(500).json({ error: e.message });
+        res.status(500).json({error: e.message});
     }
 }
