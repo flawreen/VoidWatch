@@ -18,16 +18,6 @@
 							</h2>
 						</template>
 
-						<template #subtitle>
-							<h4 class="text-h4 font-weight-regular">
-								{{ backendMessage }}
-							</h4>
-						</template>
-
-						<MovieCard title="Test" year="2025" description="Test description" to="/aaaaaaaaaaaaaa"/>
-						<hr>
-						<ReviewCard title="Nice" created_at="Nov 2025" body="blablablabla blablablabla " rating="3" username="gigel"/>
-
 					</v-card>
 				</v-col>
 
@@ -37,16 +27,4 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { get } from "@/services/http-service.js";
-import MovieCard from "@/components/MovieCard.vue";
-
-const backendMessage = ref("");
-
-const fetchMessage = async () => {
-	backendMessage.value = await get("/greet", { name: "VoidWatch" });
-}
-
-onMounted(fetchMessage);
-
 </script>

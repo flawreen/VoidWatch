@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const apiClient = axios.create({
 	baseURL: 'http://localhost:8080',
-	timeout: 1000,
+	timeout: 10000,
 	headers: {
 		'Content-Type': 'application/json',
 	},
@@ -29,6 +29,28 @@ export const get = async (url, params = {}) => {
 export const post = async (url, payload) => {
 	try {
 		const response = await apiClient.post(url, payload);
+		return response.data;
+	} catch (error) {
+		handleError(error);
+		throw error;
+	}
+};
+
+export const put = async (url, payload) => {
+	try {
+		const response = await apiClient.put(url, payload);
+		return response.data;
+	} catch (error) {
+		handleError(error);
+		throw error;
+	}
+};
+
+export const del = async (url, payload) => {
+	try {
+		const response = await apiClient.delete(url, {
+			data: payload
+		});
 		return response.data;
 	} catch (error) {
 		handleError(error);

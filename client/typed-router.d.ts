@@ -22,6 +22,8 @@ declare module 'vue-router/auto-routes' {
     '/login': RouteRecordInfo<'/login', '/login', Record<never, never>, Record<never, never>>,
     '/movie/[id]': RouteRecordInfo<'/movie/[id]', '/movie/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/movies': RouteRecordInfo<'/movies', '/movies', Record<never, never>, Record<never, never>>,
+    '/reviews/add': RouteRecordInfo<'/reviews/add', '/reviews/add', Record<never, never>, Record<never, never>>,
+    '/reviews/edit/[id]': RouteRecordInfo<'/reviews/edit/[id]', '/reviews/edit/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
   }
 
   /**
@@ -49,6 +51,14 @@ declare module 'vue-router/auto-routes' {
     }
     'src/pages/movies.vue': {
       routes: '/movies'
+      views: never
+    }
+    'src/pages/reviews/add.vue': {
+      routes: '/reviews/add'
+      views: never
+    }
+    'src/pages/reviews/edit/[id].vue': {
+      routes: '/reviews/edit/[id]'
       views: never
     }
   }

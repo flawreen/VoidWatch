@@ -10,6 +10,14 @@ const fetchMessage = async () => {
 	movie.value = await get("/movies/" + id);
 	reviews.value = await get("/reviews/" + id);
 }
+
+const getEditRoute = (reviewId, title, descr, rating) => {
+	return `/reviews/edit/${reviewId}?movieId=${id}&title=${title}&description=${descr}&rating=${rating}`;
+}
+
+const getMovieId = () => {
+	return id.toString();
+}
 onMounted(fetchMessage);
 </script>
 
@@ -43,7 +51,7 @@ onMounted(fetchMessage);
 					</v-card>
 					<v-virtual-scroll :items="reviews">
 						<template v-slot:default="{ item }">
-							<ReviewCard :title="item.title" :created_at="item.createdAt" :body="item.description" :rating="item.rating" :username="item.userName"></ReviewCard>
+							<ReviewCard :title="item.title" :created_at="item.createdAt" :body="item.description" :rating="item.rating" :username="item.userName" :editRoute="getEditRoute(item.id, item.title, item.description, item.rating)" :movieId="getMovieId()" :reviewId="item.id"></ReviewCard>
 						</template>
 					</v-virtual-scroll>
 				</v-col>

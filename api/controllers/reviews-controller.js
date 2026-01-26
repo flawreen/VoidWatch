@@ -15,8 +15,12 @@ export const getReviewsByMovie = async (req, res) => {
         }
 
         const reviewsRef = await movieRef.collection('reviews').get();
-        const reviewsDoc = await reviewsRef.docs.map(doc => doc.data());
-        return res.status(200).json(reviewsDoc);
+        const reviews = reviewsRef.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }))
+
+        return res.status(200).json(reviews);
     } catch (e) {
         logger.info(`Error retrieving reviews: ${e}`);
         return res.status(500).json({error: e.message});
@@ -61,7 +65,7 @@ export const addReview = async (req, res) => {
             title: req.body.title,
             description: req.body.description,
             rating: req.body.rating,
-            createdAt: Date.now(),
+            createdAt: Date(),
             movieTitle: movieDoc.data().title,
             movieYear: movieDoc.data().year,
             movieId: movieId,
@@ -72,7 +76,7 @@ export const addReview = async (req, res) => {
             title: req.body.title,
             description: req.body.description,
             rating: req.body.rating,
-            createdAt: Date.now(),
+            createdAt: Date(),
             userName: userDoc.data().displayName,
             userId: authenticatedUserId,
         })

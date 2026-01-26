@@ -1,12 +1,16 @@
 <script setup>
 import { ref, computed, onMounted, nextTick } from 'vue'
+import {del} from "@/services/http-service.js";
 
-defineProps({
+const props = defineProps({
 	title: String,
 	created_at: String,
 	body: String,
 	rating: Number,
 	username: String,
+	editRoute: String,
+	reviewId: String,
+	movieId: String
 })
 
 const expanded = ref(false)
@@ -17,6 +21,19 @@ const bodyClass = computed(() => (expanded.value ? '' : 'multiline-truncate'))
 
 function toggleExpanded() {
 	expanded.value = !expanded.value
+}
+
+const handleDelete = async () => {
+	try {
+		const payload = {
+			movieId: props.movieId
+		};
+		console.log(payload);
+		await del(`/reviews/${props.reviewId}`, payload);
+
+	} catch (error) {
+		console.error("Error deleting review", error);
+	}
 }
 
 function checkTruncate() {
@@ -79,8 +96,29 @@ onMounted(() => {
 
 				<v-col cols="auto">
 					<v-chip prepend-icon="mdi-calendar" variant="outlined">
-						{{ created_at }}
+						{{ new Intl.DateTimeFormat("en-GB").format(new Date(created_at)) }}
 					</v-chip>
+				</v-col>
+
+				<v-col cols="auto">
+					<v-btn
+						v-if="editRoute"
+						icon="mdi-pencil"
+						variant="text"
+						color="primary"
+						density="comfortable"
+						:to="editRoute"
+					></v-btn>
+				</v-col>
+
+				<v-col cols="auto">
+					<v-btn
+						icon="mdi-delete"
+						variant="text"
+						color="error"
+						density="comfortable"
+						@click="handleDelete"
+					></v-btn>
 				</v-col>
 			</v-row>
 		</v-card-text>
